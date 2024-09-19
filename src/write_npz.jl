@@ -60,7 +60,7 @@ Dict{String,Any} with 3 entries:
   "y"     => 3
 ```
 """
-function npzwrite(filename::AbstractString, vars::Dict{<:AbstractString}; compress=false, compression_level=4)
+function npzwrite(filename::AbstractString, vars::Dict{<:AbstractString}; compress=false, compression_level=3)
     ZipWriter(filename) do w
         if length(vars) == 0
             @warn "no data to be written to $filename. It might not be possible to read the file correctly."
