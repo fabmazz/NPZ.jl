@@ -5,8 +5,6 @@ module NPZ
 
 using ZipFile, FileIO
 import Base.CodeUnits
-using ZipArchives: ZipWriter, zip_newfile
-
 
 export npzread, npzwrite
 

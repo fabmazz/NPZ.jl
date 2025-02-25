@@ -1,3 +1,4 @@
+using ZipArchives: ZipWriter, zip_newfile
 
 """
     npzwrite(filename::AbstractString, x)
@@ -61,17 +62,15 @@ Dict{String,Any} with 3 entries:
 ```
 """
 function npzwrite(filename::AbstractString, vars::Dict{<:AbstractString}; compress=false, compression_level=3)
-    ZipWriter(filename) do w
+    ZipWriter(filename) do outf
         if length(vars) == 0
             @warn "no data to be written to $filename. It might not be possible to read the file correctly."
         end
         for (name,v) in vars
-            ## write array into buffer, then get the data
-            b =IOBuffer()
-            npzwritearray(b,v)
-            arr = take!(b)
-            zip_newfile(w, name*".npy",compress=compress, compression_level=compression_level)
-            write(w, arr)
+            # create new file
+            zip_newfile(outf, name*".npy",compress=compress, compression_level=compression_level)
+            # write the data
+            npzwritearray(outf, v)
         end
 
     end
