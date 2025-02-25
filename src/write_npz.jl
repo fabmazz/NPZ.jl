@@ -28,8 +28,8 @@ function npzwrite(filename::AbstractString, x)
 end
 
 """
-    npzwrite(filename::AbstractString, vars::Dict{<:AbstractString})
-    npzwrite(filename::AbstractString, args...; kwargs...)
+    npzwrite(filename::AbstractString, vars::Dict{<:AbstractString}; compress=false, compression_level=3)
+    npzwrite(filename::AbstractString, args...; compress=false, compression_level=3, kwargs...)
 
 In the first form, write the variables in `vars` to an `npz` file named `filename`.
 
@@ -38,6 +38,8 @@ to `filename`. The variables in `args` are saved with names `arr_0`, `arr_1`
 and so on, whereas the ones in `kwargs` are saved with the specified names.
 
 Unlike `numpy`, the extension `.npz` is not appened to `filename`.
+
+Use `compress=true` to write the file with Zip compression, at the level specified by `compression_level`.
 
 !!! warn "Warning"
     Any existing file with the same name will be overwritten.
