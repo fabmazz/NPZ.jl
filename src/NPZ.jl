@@ -55,9 +55,6 @@ function writecheck(io::IO, x::Any)
     n == sizeof(x) || error("short write") # sizeof is size in bytes
 end
 
-## Includes here
-include("write_npz.jl")
-
 # Endianness only pertains to multi-byte things
 writele(ios::IO, x::AbstractVector{UInt8}) = writecheck(ios, x)
 writele(ios::IO, x::AbstractVector{CodeUnits{UInt8, <:Any}}) = writecheck(ios, x)
@@ -373,5 +370,9 @@ load(file::File{format"NPZ"}, vars...) = npzread(filename(file), vars...)
 
 save(file::File{format"NPY"}, data, vars...) = npzwrite(filename(file), data, vars...)
 save(file::File{format"NPZ"}, data, vars...) = npzwrite(filename(file), data, vars...)
+
+## Includes here
+include("write_npz.jl")
+include("read_lazy.jl")
 
 end # module
