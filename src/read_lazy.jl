@@ -7,7 +7,7 @@ export npzread_lazy
 """
     LazyNPZ
 
-Rappresenta un archivio NPZ aperto in modalità lazy.
+Struct holding the data of a lazily read .npz file
 """
 struct LazyNPZ
     reader::ZipFile.Reader
@@ -19,7 +19,6 @@ struct LazyNPZ
         new(reader, entries, Dict{String,Array}(), false)
     end
 end
-
 
 
 function Base.show(io::IO, npz::LazyNPZ)
@@ -36,7 +35,7 @@ end
 """
     npzread_lazy(filename)
 
-Apre un file NPZ senza caricare i dati.
+Read an npz file lazily
 """
 function npzread_lazy(filename::AbstractString)
     reader = ZipFile.Reader(filename)
